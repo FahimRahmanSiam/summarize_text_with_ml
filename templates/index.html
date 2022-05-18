@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Summary app</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .head{
+            width: 100%;
+            height: 100px;
+            background-color: rgb(4, 4, 63);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h2{
+            color: orange;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 40px;
+        }
+        h3{
+            color: rgb(56, 54, 54);
+            font-family: cursive;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;  
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            }
+
+            .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            background: #04AA6D;
+            cursor: pointer;
+            }
+
+            .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <img src="logo.png" alt="" srcset="">
+        <h2>Summarize your text for free</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Original text</h3>
+                <form action="{{url_for('Summarize')}}" method="post">
+                    <textarea  class="form-control" name="data" id="" cols="30" rows="10" placeholder="Please enter the text you want to summarize" required="required"></textarea><br>
+                    <input id="maxl" min="20" max="500" value="100" class="slider" name="maxl" type="range"><br>
+                    <p>Summarize with in <i><span id="demo"></span></i> words</p>
+                        <button type="reset" class="btn btn-outline-warning">Clear</button>
+                        <button type="submit" class="btn btn-outline-info">Summarize</button>
+
+                </form>
+            </div>
+            <div class="col">
+                <h3>Summarized text</h3>
+                <textarea disabled cols="30" rows="10" aria-label="readonly" class="form-control">{{result}}</textarea>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var slider = document.getElementById("maxl");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    }
+</script>
+</html>
